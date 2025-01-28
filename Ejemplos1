@@ -1,0 +1,67 @@
+import random
+
+def generala_tirar():
+    lista=[]
+    for i in range(5):
+        lista.append(random.randint(1,6))
+    return lista
+        
+print(generala_tirar())
+
+def lineasConEstudiante():
+    lista=[]
+    nombre_archivo="/home/Estudiante/Archivos Clase 01-20250128/datame.txt"
+    with open(nombre_archivo,"rt") as file:
+        for line in file:
+            palabras=line.split(" ")
+            for palabra in palabras:
+                if palabra=="estudiantes":
+                    lista.append(line)
+    return lista
+
+print(lineasConEstudiante())   
+
+def listaMaterias(nombre_archivo):
+    lista_materias=[]
+    with open(nombre_archivo,"rt") as xd:
+        next(xd)
+        for line in xd:
+            datos_linea=line.split(",")
+            lista_materias.append(datos_linea[1])
+    return lista_materias
+
+print(listaMaterias("/home/Estudiante/Archivos Clase 01-20250128/cronograma_sugerido.csv"))
+
+def cuantas_materias(nombre_archivo, n):
+      lista_cuatris=[]
+      with open(nombre_archivo,"rt") as xd:
+          next(xd)
+          for line in xd:
+              datos_linea=line.split(",")
+              lista_cuatris.append(datos_linea[0])
+      return lista_cuatris.count(str(n))
+
+print(cuantas_materias("/home/Estudiante/Archivos Clase 01-20250128/cronograma_sugerido.csv", 3))
+
+def materias_cuatrimestre(nombre_archivo, n)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
