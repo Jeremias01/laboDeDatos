@@ -1,0 +1,62 @@
+from sklearn.neighbors import KNeighborsRegressor as knnsk
+import pandas as pd
+from sklearn.metrics import mean_squared_error as msesk
+import matplotlib. pyplot as plt
+import seaborn as sns
+
+datos=pd.read_csv("/home/Estudiante/Descargas/Resultados - Altura - 2025v - Alturas.csv",index_col=0)
+
+datos_varones=datos[datos['Sexo al nacer (M/F)']=='M']
+X=datos_varones[['altura madre']]
+
+alturas=datos[['Altura (cm)']]
+Y=alturas[datos['Sexo al nacer (M/F)']=='M']
+
+neigh=knnsk(n_neighbors=1)
+neigh.fit(X,Y)
+
+datonuevo=pd.DataFrame([{'altura madre':156}])
+pred_1=neigh.predict(datonuevo)
+Y_pred=neigh.predict(X)
+pred_2=msesk(Y,Y_pred)
+
+lista=[]
+
+for i in range(1,20):
+    neigh=knnsk(n_neighbors=i)
+    neigh.fit(X,Y)
+    Y_pred=neigh.predict(X)
+    pred_2=msesk(Y,Y_pred)
+    lista.append(pred_2)
+    
+graf=pd.DataFrame(lista)
+xd=plt.plot(graf)
+plt.xlabel('Cantidad de vecinos')
+plt.ylabel('Error')
+
+#%% OTRO DF
+
+datos=pd.read_csv("/home/Estudiante/Descargas/Clase 16 - RLS - Archivos clase-20250225/auto-mpg.xls")
+
+X=datos[['acceleration']]
+
+
+Y=datos[['mpg']]
+
+
+lista=[]
+
+
+for i in range(1,20):
+    neigh=knnsk(n_neighbors=i)
+    neigh.fit(X,Y)
+    Y_pred=neigh.predict(X)
+    pred_2=msesk(Y,Y_pred)
+    lista.append(pred_2)
+    
+graf=pd.DataFrame(lista)
+xd=plt.plot(graf)
+plt.xlabel('Cantidad de vecinos')
+plt.ylabel('Error')
+
+sns.pairplot(datos[['acceleration','mpg','horsepower','weight','displacement']])
